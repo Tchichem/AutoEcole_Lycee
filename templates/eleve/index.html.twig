@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Elèves{% endblock %}
+
+{% block body %}
+<h1>Elèves</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de naissance</th>
+            <th>Date d'inscription</th>
+            <th>Code</th>
+            <th>Conduite</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for eleve in eleves %}
+        <tr>
+            <td>{{ eleve.idEleve }}</td>
+            <td>{{ eleve.nomEleve }}</td>
+            <td>{{ eleve.prenomEleve }}</td>
+            <td>{{ eleve.dateNaissanceEleve|date('d/m/Y') }}</td>
+            <td>{{ eleve.dateInscription|date('d/m/Y') }}</td>
+            <td>{{ eleve.code ? 'Obtenu' : 'Non obtenu' }}</td>
+            <td>{{ eleve.conduite ? 'Obtenu' : 'Non obtenu' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
