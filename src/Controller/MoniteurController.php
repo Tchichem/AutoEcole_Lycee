@@ -59,4 +59,13 @@ final class MoniteurController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/moniteurs/update/{id}', name: 'app_moniteurs_update', methods: ['POST'])]
+    public function update(int $id, Request $request, MONITEURRepository $moniteurRepository, EntityManagerInterface $em): Response
+    {
+        $moniteur = $moniteurRepository->find($id);
+        $moniteur->setActivite((bool) $request->request->get('valeur'));
+        $em->flush();
+        return $this->redirectToRoute('app_moniteurs');
+    }
 }

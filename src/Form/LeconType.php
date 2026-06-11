@@ -24,6 +24,10 @@ class LeconType extends AbstractType
                 'class' => MONITEUR::class,
                 'choice_label' => 'nom_moniteur',
                 'label' => 'Moniteur',
+                'query_builder' => function($repo) {
+                    return $repo->createQueryBuilder('m')
+                        ->where('m.activite = true');
+                },
             ])
             ->add('lecon_eleve_id', EntityType::class, [
                 'class' => ELEVE::class,
@@ -34,6 +38,11 @@ class LeconType extends AbstractType
                 'class' => MODELE::class,
                 'choice_label' => 'modele_vehic',
                 'label' => 'Véhicule',
+                'query_builder' => function($repo) {
+                    return $repo->createQueryBuilder('m')
+                        ->join('App\Entity\VEHICULE', 'v', 'WITH', 'v.modele_vehic = m.modele_vehic')
+                        ->where('v.etat = true');
+                },
             ])
             ->add('lecon_date_heure', EntityType::class, [
                 'class' => CALENDRIER::class,

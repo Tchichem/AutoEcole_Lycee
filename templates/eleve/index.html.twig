@@ -28,8 +28,22 @@
             <td>{{ eleve.prenomEleve }}</td>
             <td>{{ eleve.dateNaissanceEleve|date('d/m/Y') }}</td>
             <td>{{ eleve.dateInscription|date('d/m/Y') }}</td>
-            <td>{{ eleve.code ? 'Obtenu' : 'Non obtenu' }}</td>
-            <td>{{ eleve.conduite ? 'Obtenu' : 'Non obtenu' }}</td>
+            <td>
+                <form method="post" action="{{ path('app_eleves_update', {'id': eleve.idEleve}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('update_eleve') }}">
+                    <input type="hidden" name="champ" value="code">
+                    <input type="hidden" name="valeur" value="{{ eleve.code ? '0' : '1' }}">
+                    <button type="submit">{{ eleve.code ? 'Obtenu' : 'Non obtenu' }}</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" action="{{ path('app_eleves_update', {'id': eleve.idEleve}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('update_eleve') }}">
+                    <input type="hidden" name="champ" value="conduite">
+                    <input type="hidden" name="valeur" value="{{ eleve.conduite ? '0' : '1' }}">
+                    <button type="submit">{{ eleve.conduite ? 'Obtenu' : 'Non obtenu' }}</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

@@ -81,4 +81,13 @@ final class VehiculeController extends AbstractController
             'formModele' => $formModele,
         ]);
     }
+
+    #[Route('/vehicules/update/{id}', name: 'app_vehicules_update', methods: ['POST'])]
+    public function update(string $id, Request $request, VEHICULERepository $vehiculeRepository, EntityManagerInterface $em): Response
+    {
+        $vehicule = $vehiculeRepository->find($id);
+        $vehicule->setEtat((bool) $request->request->get('valeur'));
+        $em->flush();
+        return $this->redirectToRoute('app_vehicules');
+    }
 }

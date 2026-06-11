@@ -20,7 +20,13 @@
         <tr>
             <td>{{ vehicule.numImmatric }}</td>
             <td>{{ vehicule.modeleVehic.modeleVehic }}</td>
-            <td>{{ vehicule.etat ? 'En service' : 'Hors service' }}</td>
+            <td>
+                <form method="post" action="{{ path('app_vehicules_update', {'id': vehicule.numImmatric}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('update_vehicule') }}">
+                    <input type="hidden" name="valeur" value="{{ vehicule.etat ? '0' : '1' }}">
+                    <button type="submit">{{ vehicule.etat ? 'En service' : 'Hors service' }}</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

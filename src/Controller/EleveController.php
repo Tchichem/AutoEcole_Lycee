@@ -61,4 +61,21 @@ class EleveController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/eleves/update/{id}', name: 'app_eleves_update', methods: ['POST'])]
+    public function update(int $id, Request $request, ELEVERepository $eleveRepository, EntityManagerInterface $em): Response
+    {
+        $eleve = $eleveRepository->find($id);
+        $champ = $request->request->get('champ');
+        $valeur = (bool) $request->request->get('valeur');
+
+        if ($champ === 'code') {
+            $eleve->setCode($valeur);
+        } elseif ($champ === 'conduite') {
+            $eleve->setConduite($valeur);
+        }
+
+        $em->flush();
+        return $this->redirectToRoute('app_eleves');
+    }
 }
