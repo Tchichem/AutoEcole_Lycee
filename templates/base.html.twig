@@ -2,23 +2,44 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}AEL{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
+        {% block stylesheets %}{% endblock %}
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-
-        {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphpHotReload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+
+        <div style="display: flex; flex: 1;">
+
+            <!-- Navbar -->
+            <aside style="width: 150px; border-right: 1px solid #ccc; padding: 20px;">
+                <strong>AEL</strong>
+                <nav style="margin-top: 20px;">
+                    <p><strong>Navigation</strong></p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="{{ path('app_eleves') }}">Élèves</a></li>
+                        <li><a href="{{ path('app_lecons') }}">Rendez-vous</a></li>
+                        <li><a href="{{ path('app_moniteurs') }}">Moniteurs</a></li>
+                        <li><a href="{{ path('app_vehicules') }}">Véhicules</a></li>
+                        <li><a href="#">Statistiques</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Body -->
+            <main style="flex: 1; padding: 30px;">
+                {% block body %}{% endblock %}
+            </main>
+
+        </div>
+
+        <!-- Footer -->
+        <footer style="border-top: 1px solid #ccc; padding: 10px 20px; display: flex; justify-content: space-between;">
+            <span>Mentions légales</span>
+            <span>© 2026</span>
+        </footer>
+
     </body>
 </html>

@@ -11,7 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
 class CALENDRIER
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTime $date_heure = null;
 
     /**
@@ -23,6 +27,19 @@ class CALENDRIER
     public function __construct()
     {
         $this->lecons = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+
+    public function setId(INT $new_id): static
+    {
+        $this->id = $new_id;
+
+        return $this;
     }
 
     public function getDateHeure(): ?\DateTime
@@ -65,5 +82,10 @@ class CALENDRIER
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->date_heure ? $this->date_heure->format('Y-m-d H:i:s') : '';
     }
 }

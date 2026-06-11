@@ -17,7 +17,7 @@ class LECON
     private ?int $duree = null;
 
     #[ORM\ManyToOne(inversedBy: 'lecons')]
-    #[ORM\JoinColumn(name: 'lecon_date_heure', referencedColumnName: 'date_heure', nullable: false)]
+    #[ORM\JoinColumn(name: 'calendrier_id', referencedColumnName: 'id', nullable: false)]
     private ?CALENDRIER $lecon_date_heure = null;
 
     #[ORM\ManyToOne(inversedBy: 'lecons')]
@@ -32,9 +32,16 @@ class LECON
     #[ORM\JoinColumn(name: 'lecon_moniteur_id', referencedColumnName: 'id_moniteur', nullable: false)]
     private ?MONITEUR $lecon_moniteur_id = null;
 
-    public function getId(): ?int
+    public function getIdLecon(): ?int
     {
         return $this->id;
+    }
+
+    public function setIdLecon(int $new_id): static
+    {
+        $this->id = $new_id;
+
+        return $this;
     }
 
     public function getDuree(): ?int

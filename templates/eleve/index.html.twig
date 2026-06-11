@@ -4,6 +4,10 @@
 
 {% block body %}
 <h1>Elèves</h1>
+<form method="get" action="{{ path('app_eleves') }}">
+    Rechercher : <input type="text" name="search" value="{{ app.request.query.get('search') }}">
+    <button type="submit">Entrer</button>
+</form>
 <table>
     <thead>
         <tr>
@@ -30,4 +34,15 @@
         {% endfor %}
     </tbody>
 </table>
+{{ knp_pagination_render(eleves) }}
+
+<h2>Effectuer une inscription</h2>
+{{ form_start(form) }}
+    {{ form_row(form.nom_eleve) }}
+    {{ form_row(form.prenom_eleve) }}
+    {{ form_row(form.date_naissance_eleve) }}
+    {{ form_row(form.code) }}
+    {{ form_row(form.conduite) }}
+    <button type="submit">Enregistrer</button>
+{{ form_end(form) }}
 {% endblock %}
