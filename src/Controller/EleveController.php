@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class EleveController extends AbstractController
 {
-    #[Route('/eleves', name: 'app_eleves')]
+    #[Route('/', name: 'app_eleves')]
     public function index(
         ELEVERepository $eleveRepository,
         PaginatorInterface $paginator,

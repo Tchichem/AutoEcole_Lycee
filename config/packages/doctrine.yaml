@@ -1,10 +1,10 @@
 doctrine:
     dbal:
         driver: pdo_sqlsrv
-        host: "localhost\\HLCDA2026"
+        host: # PUT HOST HERE
         dbname: ECF_AEL_CDA
-        user: "sa"
-        password: "Afpa06130++CDA"
+        user: # PUT USER HERE
+        password: # PUT PASSWORD HERE
         charset: UTF-8
         options:
             TrustServerCertificate: 1
