@@ -9,36 +9,33 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
-
-        <div style="display: flex; flex: 1;">
-
+    <body>
+        <div>
             <!-- Navbar -->
-            <aside style="width: 150px; border-right: 1px solid #cccccc; padding: 20px; ">
-                <strong>AEL - Auto-Ecole du Lycée</strong>
-                <nav style="margin-top: 20px;">
-                    <p><strong>Navigation</strong></p>
-                    <ul style="list-style: none; padding: 0;">
+            <aside>
+                <strong id="nav_app_name">AEL - Auto-Ecole du Lycée</strong>
+                <nav>
+                    <ul>
                         <li><a href="{{ path('app_eleves') }}">Élèves</a></li>
                         <li><a href="{{ path('app_lecons') }}">Rendez-vous</a></li>
                         <li><a href="{{ path('app_moniteurs') }}">Moniteurs</a></li>
                         <li><a href="{{ path('app_vehicules') }}">Véhicules</a></li>
-                        <li><a href="#">Statistiques</a></li>
+                        <li><a href="{{ path('app_statistiques') }}">Statistiques</a></li>
                     </ul>
                 </nav>
             </aside>
 
-            <!-- Body -->
-            <main style="flex: 1; padding: 30px; background-color: white;">
+            <!-- Main -->
+            <main>
                 {% block body %}{% endblock %}
             </main>
 
         </div>
 
         <!-- Footer -->
-        <footer style="border-top: 1px solid #ccc; padding: 10px 20px; display: flex; justify-content: space-around;color: white; background-color: #001457;">
-            <span>Mentions légales</span>
-            <span>© 2026</span>
+        <footer>
+            <a href="{{ path('app_mentions_legales') }}">Mentions légales</a>
+            <span>© {{ "now"|date("Y") }}</span>
         </footer>
 
     </body>

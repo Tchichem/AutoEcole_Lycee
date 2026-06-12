@@ -19,6 +19,7 @@ class ModeleType extends AbstractType
             ->add('marque', ChoiceType::class, [
                 'label' => 'Marque',
                 'choices' => [
+                    'Citroën' => 'Citroën',
                     'Ford' => 'Ford',
                     'Renault' => 'Renault',
                     'Peugeot' => 'Peugeot',

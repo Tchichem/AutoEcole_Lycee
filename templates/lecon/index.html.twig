@@ -5,42 +5,49 @@
 {% block body %}
 <h1>Rendez-vous</h1>
 
-<form method="get" action="{{ path('app_lecons') }}">
+<form id="searchbar" method="get" action="{{ path('app_lecons') }}">
     Rechercher : <input type="text" name="search" value="{{ app.request.query.get('search') }}">
     <button type="submit">Entrer</button>
 </form>
 
-<table>
-    <thead>
-        <tr>
-            <th>Élève</th>
-            <th>Moniteur</th>
-            <th>Véhicule</th>
-            <th>Durée</th>
-            <th>Horaire</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for lecon in lecons %}
-        <tr>
-            <td>{{ lecon.leconEleveId.nomEleve }} {{ lecon.leconEleveId.prenomEleve }}</td>
-            <td>{{ lecon.leconMoniteurId.nomMoniteur }} {{ lecon.leconMoniteurId.prenomMoniteur }}</td>
-            <td>{{ lecon.leconModeleVehic.modeleVehic }}</td>
-            <td>{{ lecon.duree }} min</td>
-            <td>{{ lecon.leconDateHeure.dateHeure|date('d/m/Y H:i') }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{{ knp_pagination_render(lecons) }}
+{% if lecons.getTotalItemCount() > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Élève</th>
+                <th>Moniteur</th>
+                <th>Véhicule</th>
+                <th>Durée</th>
+                <th>Horaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lecon in lecons %}
+            <tr>
+                <td>{{ lecon.leconEleveId.nomEleve }} {{ lecon.leconEleveId.prenomEleve }}</td>
+                <td>{{ lecon.leconMoniteurId.nomMoniteur }} {{ lecon.leconMoniteurId.prenomMoniteur }}</td>
+                <td>{{ lecon.leconModeleVehic.modeleVehic }}</td>
+                <td>{{ lecon.duree }} min</td>
+                <td>{{ lecon.leconDateHeure.dateHeure|date('d/m/Y H:i') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(lecons) }}
+{% else %}
+    <p>Aucune leçon n'est actuellement enregistrée.</p>
+{% endif %}
 
 <h2>Prendre un rendez-vous</h2>
-{{ form_start(form) }}
-    {{ form_row(form.lecon_eleve_id) }}
-    {{ form_row(form.lecon_moniteur_id) }}
-    {{ form_row(form.lecon_date_heure) }}
-    {{ form_row(form.lecon_modele_vehic) }}
-    {{ form_row(form.duree) }}
-    <button type="submit">Enregistrer</button>
-{{ form_end(form) }}
+<div class="form-wrapper">
+    {{ form_start(form) }}
+        {{ form_row(form.lecon_eleve_id) }}
+        {{ form_row(form.lecon_moniteur_id) }}
+        {{ form_row(form.lecon_date_heure) }}
+        {{ form_row(form.lecon_modele_vehic) }}
+        {{ form_row(form.duree) }}
+        <button type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+</div>
+
 {% endblock %}

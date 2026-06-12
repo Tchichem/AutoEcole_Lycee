@@ -32,6 +32,9 @@ class LECON
     #[ORM\JoinColumn(name: 'lecon_moniteur_id', referencedColumnName: 'id_moniteur', nullable: false)]
     private ?MONITEUR $lecon_moniteur_id = null;
 
+    #[ORM\Column(type: 'string', length: 19, name: 'lecon_date_heure')]
+    private ?string $leconDateHeureRaw = null;
+
     public function getIdLecon(): ?int
     {
         return $this->id;
@@ -54,6 +57,16 @@ class LECON
         $this->duree = $duree;
 
         return $this;
+    }
+
+    public function getLeconDateHeureRaw(): ?string 
+    { 
+        return $this->leconDateHeureRaw; 
+    }
+    public function setLeconDateHeureRaw(string $d): static 
+    { 
+        $this->leconDateHeureRaw = $d; 
+        return $this; 
     }
 
     public function getLeconDateHeure(): ?CALENDRIER

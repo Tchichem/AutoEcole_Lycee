@@ -1,3 +1,196 @@
+/** STYLES **/
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    list-style: none;
+}
+
+a:active {
+    text-decoration: none;
+    color: #929292;
+}
+
+
+/** TABLES **/
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+thead th {
+    background-color: #000;
+    color: white;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+}
+
+tbody td {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+tbody button {
+    padding: 0.2rem 0.6rem;
+    border: 1px solid #999;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    background: white;
+}
+
+tbody button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/** PAGINATION **/
+.pagination {
+    display: flex;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+.pagination li a,
+.pagination li span {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #000;
+    font-size: 0.9rem;
+}
+.pagination li a:hover {
+    background-color: #f0f0f0;
+}
+.pagination li.active span {
+    background-color: #000;
+    color: white;
+    border-color: #000;
+}
+
+/** FORMS **/
+.form-wrapper {
+    max-width: 480px;
+    margin-top: 1rem;
+}
+
+.form-wrapper div {
+    margin-bottom: 1rem;
+}
+
+.form-wrapper label {
+    display: block;
+    margin-right: 0.5rem;
+    font-weight: 600;
+}
+
+.form-wrapper input[type="text"],
+.form-wrapper input[type="date"],
+.form-wrapper input[type="datetime-local"],
+.form-wrapper select {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.form-wrapper button[type="submit"] {
+    padding: 0.5rem 1.4rem;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.form-wrapper button[type="submit"]:hover {
+    background: #333;
+}
+
+/******* STRUCTURE *******/
+
+/** BODY **/
+
 body {
-    background-color: skyblue;
+    background-color: #000000;
+    display: flex; 
+    flex-direction: column; 
+    margin: 0;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+/** NAVBAR **/
+
+body div {
+    display: flex; 
+    flex: 1;
+}
+
+aside {
+    border-right: 1px solid #7e7e7e; 
+    padding: 1.5rem; 
+}
+
+nav ul {
+    padding: 0;
+}
+
+nav a {
+    color: #ccc;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: white;
+}
+
+#nav_app_name {
+    color: white;
+}
+
+/** MAIN **/
+
+main {
+    flex: 1; 
+    padding: 2rem; 
+    background-color: white;
+}
+
+#searchbar {
+    margin-bottom: 1rem;
+}
+
+/** FOOTER **/
+
+footer {
+    border-top: 1px solid #7e7e7e; 
+    padding: 1rem 1rem; 
+    display: flex; 
+    justify-content: space-around;
+    color: white; 
+    background-color: #000000;
+}
+
+footer a {
+    color: white;
 }

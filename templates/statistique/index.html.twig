@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title %}Statistiques{% endblock %}
+{% block body %}
+
+<h1>Statistiques en {{ annee }}</h1>
+
+<h2>Réussites</h2>
+<table>
+    <tbody>
+        <tr>
+            <td>Code</td>
+            <td>{{ elevesCode }}</td>
+        </tr>
+        <tr>
+            <td>Conduite</td>
+            <td>{{ elevesConduite }}</td>
+        </tr>
+        <tr>
+            <td>Permis complet (code + conduite)</td>
+            <td>{{ elevesPermis }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Difficultés (plus de 3 leçons sans obtenir code ou conduite)</h2>
+
+{% if elevesEnDifficulte|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Code</th>
+                <th>Conduite</th>
+                <th>Nombre de leçons</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in elevesEnDifficulte %}
+            <tr>
+                <td>{{ row.nom_eleve }}</td>
+                <td>{{ row.prenom_eleve }}</td>
+                <td>{{ row.code ? 'Obtenu' : 'Non obtenu' }}</td>
+                <td>{{ row.conduite ? 'Obtenu' : 'Non obtenu' }}</td>
+                <td>{{ row.nb_lecons }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(elevesEnDifficulte) }}
+{% else %}
+    <p>Aucune information ne permet de générer des statistiques.</p>
+{% endif %}
+
+{% endblock %}

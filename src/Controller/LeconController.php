@@ -46,7 +46,12 @@ final class LeconController extends AbstractController
         
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($lecon);
+            $lecon->setLeconDateHeureRaw(
+                $lecon->getLeconDateHeure()->getDateHeure()->format('Y-m-d H:i:s')
+            );
+            $em->persist($lecon);
+            $em->flush();
+            return $this->redirectToRoute('app_lecons');
         }
 
         return $this->render('lecon/index.html.twig', [

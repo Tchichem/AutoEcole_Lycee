@@ -3,80 +3,94 @@
 {% block body %}
 
 <h1>Véhicules</h1>
-<form method="get" action="{{ path('app_vehicules') }}">
+<form id="searchbar" method="get" action="{{ path('app_vehicules') }}">
     Rechercher : <input type="text" name="search_vehicule" value="{{ app.request.query.get('search_vehicule') }}">
     <button type="submit">Entrer</button>
 </form>
-<table>
-    <thead>
-        <tr>
-            <th>Numéro d'immatriculation</th>
-            <th>Modèle</th>
-            <th>État</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for vehicule in vehicules %}
-        <tr>
-            <td>{{ vehicule.numImmatric }}</td>
-            <td>{{ vehicule.modeleVehic.modeleVehic }}</td>
-            <td>
-                <form method="post" action="{{ path('app_vehicules_update', {'id': vehicule.numImmatric}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('update_vehicule') }}">
-                    <input type="hidden" name="valeur" value="{{ vehicule.etat ? '0' : '1' }}">
-                    <button type="submit">{{ vehicule.etat ? 'En service' : 'Hors service' }}</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{{ knp_pagination_render(vehicules) }}
+
+{% if vehicules.getTotalItemCount() > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro d'immatriculation</th>
+                <th>Modèle</th>
+                <th>État</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehicule in vehicules %}
+            <tr>
+                <td>{{ vehicule.numImmatric }}</td>
+                <td>{{ vehicule.modeleVehic.modeleVehic }}</td>
+                <td>
+                    <form method="post" action="{{ path('app_vehicules_update', {'id': vehicule.numImmatric}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('update_vehicule') }}">
+                        <input type="hidden" name="valeur" value="{{ vehicule.etat ? '0' : '1' }}">
+                        <button type="submit">{{ vehicule.etat ? 'En service' : 'Hors service' }}</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(vehicules) }}
+{% else %}
+    <p>Aucun véhicule n'est actuellement enregistré.</p>
+{% endif %}
 
 <h2>Enregistrer un nouveau véhicule</h2>
-{{ form_start(formVehicule) }}
-    {{ form_row(formVehicule.num_immatric) }}
-    {{ form_row(formVehicule.modele_vehic) }}
-    {{ form_row(formVehicule.etat) }}
-    <button type="submit">Enregistrer</button>
-{{ form_end(formVehicule) }}
+<div class="form-wrapper">
+    {{ form_start(formVehicule) }}
+        {{ form_row(formVehicule.num_immatric) }}
+        {{ form_row(formVehicule.modele_vehic) }}
+        {{ form_row(formVehicule.etat) }}
+        <button type="submit">Enregistrer</button>
+    {{ form_end(formVehicule) }}
+</div>
 
 <hr>
 
 <h1>Modèles</h1>
-<form method="get" action="{{ path('app_vehicules') }}">
+<form id="searchbar" method="get" action="{{ path('app_vehicules') }}">
     Rechercher : <input type="text" name="search_modele" value="{{ app.request.query.get('search_modele') }}">
     <button type="submit">Entrer</button>
 </form>
-<table>
-    <thead>
-        <tr>
-            <th>Nom du modèle</th>
-            <th>Marque</th>
-            <th>Année</th>
-            <th>Date d'achat</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for modele in modeles %}
-        <tr>
-            <td>{{ modele.modeleVehic }}</td>
-            <td>{{ modele.marque }}</td>
-            <td>{{ modele.annee }}</td>
-            <td>{{ modele.dateAchat|date('d/m/Y') }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{{ knp_pagination_render(modeles) }}
+
+{% if modeles.getTotalItemCount() > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nom du modèle</th>
+                <th>Marque</th>
+                <th>Année</th>
+                <th>Date d'achat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for modele in modeles %}
+            <tr>
+                <td>{{ modele.modeleVehic }}</td>
+                <td>{{ modele.marque }}</td>
+                <td>{{ modele.annee }}</td>
+                <td>{{ modele.dateAchat|date('d/m/Y') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(modeles) }}
+{% else %}
+    <p>Aucun modèle n'est actuellement enregistré.</p>
+{% endif %}
 
 <h2>Enregistrer un nouveau modèle</h2>
-{{ form_start(formModele) }}
-    {{ form_row(formModele.modele_vehic) }}
-    {{ form_row(formModele.marque) }}
-    {{ form_row(formModele.annee) }}
-    {{ form_row(formModele.date_achat) }}
-    <button type="submit">Enregistrer</button>
-{{ form_end(formModele) }}
+<div class="form-wrapper">
+    {{ form_start(formModele) }}
+        {{ form_row(formModele.modele_vehic) }}
+        {{ form_row(formModele.marque) }}
+        {{ form_row(formModele.annee) }}
+        {{ form_row(formModele.date_achat) }}
+        <button type="submit">Enregistrer</button>
+    {{ form_end(formModele) }}
+</div>
 
 {% endblock %}

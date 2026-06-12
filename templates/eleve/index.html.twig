@@ -4,59 +4,69 @@
 
 {% block body %}
 <h1>Elèves</h1>
-<form method="get" action="{{ path('app_eleves') }}">
+<form id="searchbar" method="get" action="{{ path('app_eleves') }}">
     Rechercher : <input type="text" name="search" value="{{ app.request.query.get('search') }}">
     <button type="submit">Entrer</button>
 </form>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Date de naissance</th>
-            <th>Date d'inscription</th>
-            <th>Code</th>
-            <th>Conduite</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for eleve in eleves %}
-        <tr>
-            <td>{{ eleve.idEleve }}</td>
-            <td>{{ eleve.nomEleve }}</td>
-            <td>{{ eleve.prenomEleve }}</td>
-            <td>{{ eleve.dateNaissanceEleve|date('d/m/Y') }}</td>
-            <td>{{ eleve.dateInscription|date('d/m/Y') }}</td>
-            <td>
-                <form method="post" action="{{ path('app_eleves_update', {'id': eleve.idEleve}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('update_eleve') }}">
-                    <input type="hidden" name="champ" value="code">
-                    <input type="hidden" name="valeur" value="{{ eleve.code ? '0' : '1' }}">
-                    <button type="submit">{{ eleve.code ? 'Obtenu' : 'Non obtenu' }}</button>
-                </form>
-            </td>
-            <td>
-                <form method="post" action="{{ path('app_eleves_update', {'id': eleve.idEleve}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('update_eleve') }}">
-                    <input type="hidden" name="champ" value="conduite">
-                    <input type="hidden" name="valeur" value="{{ eleve.conduite ? '0' : '1' }}">
-                    <button type="submit">{{ eleve.conduite ? 'Obtenu' : 'Non obtenu' }}</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{{ knp_pagination_render(eleves) }}
+
+{% if eleves.getTotalItemCount() > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Date d'inscription</th>
+                <th>Code</th>
+                <th>Conduite</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for eleve in eleves %}
+            <tr>
+                <td>{{ eleve.idEleve }}</td>
+                <td>{{ eleve.nomEleve }}</td>
+                <td>{{ eleve.prenomEleve }}</td>
+                <td>{{ eleve.dateNaissanceEleve|date('d/m/Y') }}</td>
+                <td>{{ eleve.dateInscription|date('d/m/Y') }}</td>
+                <td>
+                    <form method="post" action="{{ path('app_eleves_update', {'id': eleve.idEleve}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('update_eleve') }}">
+                        <input type="hidden" name="champ" value="code">
+                        <input type="hidden" name="valeur" value="{{ eleve.code ? '0' : '1' }}">
+                        <button type="submit">{{ eleve.code ? 'Obtenu' : 'Non obtenu' }}</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="{{ path('app_eleves_update', {'id': eleve.idEleve}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('update_eleve') }}">
+                        <input type="hidden" name="champ" value="conduite">
+                        <input type="hidden" name="valeur" value="{{ eleve.conduite ? '0' : '1' }}">
+                        <button type="submit" {{ not eleve.code ? 'disabled' : '' }}>
+                            {{ eleve.conduite ? 'Obtenu' : 'Non obtenu' }}
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(eleves) }}
+{% else %}
+    <p>Aucun élève n'est actuellement inscrit.</p>
+{% endif %}
 
 <h2>Effectuer une inscription</h2>
-{{ form_start(form) }}
-    {{ form_row(form.nom_eleve) }}
-    {{ form_row(form.prenom_eleve) }}
-    {{ form_row(form.date_naissance_eleve) }}
-    {{ form_row(form.code) }}
-    {{ form_row(form.conduite) }}
-    <button type="submit">Enregistrer</button>
-{{ form_end(form) }}
+<div class="form-wrapper">
+    {{ form_start(form) }}
+        {{ form_row(form.nom_eleve) }}
+        {{ form_row(form.prenom_eleve) }}
+        {{ form_row(form.date_naissance_eleve) }}
+        {{ form_row(form.code) }}
+        {{ form_row(form.conduite) }}
+        <button type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+</div>
+
 {% endblock %}

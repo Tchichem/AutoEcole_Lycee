@@ -3,7 +3,8 @@ doctrine:
         driver: pdo_sqlsrv
         host: "localhost\\HLCDA2026"
         dbname: ECF_AEL_CDA
-        user: ""
+        user: "sa"
+        password: "Afpa06130++CDA"
         charset: UTF-8
         options:
             TrustServerCertificate: 1
